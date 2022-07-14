@@ -37,8 +37,8 @@ __version__     = 0.2
 def parseOptions():
     parser = OptionParser()
     parser.add_option("-H", "--host", dest="HOST")
-    parser.add_option("-U", "--username", dest="USERNAME")
-    parser.add_option("-P", "--password", dest="PASSWORD")
+    parser.add_option("-U", "--username", dest="USERNAME", default="")
+    parser.add_option("-P", "--password", dest="PASSWORD", default="")
     parser.add_option("-T", "--test", dest="TEST")
     (options, args) = parser.parse_args()
 
@@ -66,13 +66,6 @@ def checkSensors():
                 
 def checkVdisks():
     error = 0
-    #tn = telnetlib.Telnet(host)
-    #tn.read_until("login: ")
-    #tn.write(user + "\n")
-    #tn.read_until("Password: ")
-    #tn.write(password + "\n")
-    #tn.write("show vdisks\n")
-    #tn.write("exit\n")
     ssh = pxssh.pxssh()
     ssh.login(host,user,password,auto_prompt_reset=False)
     ssh.sendline('show vdisks')
@@ -85,13 +78,6 @@ def checkVdisks():
 
 def checkPorts():
     error=0
-    #tn = telnetlib.Telnet(host)
-    #tn.read_until("login: ")
-    #tn.write(user + "\n")
-    #tn.read_until("Password: ")
-    #tn.write(password + "\n")
-    #tn.write("show ports\n")
-    #tn.write("exit\n")
     ssh = pxssh.pxssh(timeout=10)
     ssh.login(host,user,password,auto_prompt_reset=False)
     ssh.setwinsize(100,1000)  
@@ -102,7 +88,7 @@ def checkPorts():
     output = ssh.before.split("\n")
     for line in output:
         if line.find('iSCSI') and line.find('Disconnected') != -1:
-            print line
+            #print line
             error = error + 1
     return error
 
@@ -118,8 +104,9 @@ def checkDisks():
     ssh.prompt()
     output = ssh.before.split("\r\n")
     for line in output:
+	#print line
         #if a line contains GB it is probably a disk so look for the OK value (or not)
-        if line.find("GB") and line.find('OK') != -1:
+        if "GB" in line and "OK" not in line:
             error = error + 1
     return error
 
