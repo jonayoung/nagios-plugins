@@ -10,3 +10,15 @@ Usage Syntax:
 ```
 python2 check_dothill_byssh.py -H 163.1.55.227 -T disks -U <login_username> -P <login_password>
 ```
+
+##  check_dell_nseries_stacking.py
+A plugin to check the stacking health of Dell N series campus switches as reported via SNMP, tested on an N1548.
+
+Requires system libsnmp-dev
+
+And python modules: python3-netsnmp, sys, argparse, numpy
+
+Syntax:
+```
+python3 check_dell_nseries_stacking.py --hostname <hostip> --community <snmpcommunity>
+```
