@@ -22,3 +22,14 @@ Syntax:
 ```
 python3 check_dell_nseries_stacking.py --hostname <hostip> --community <snmpcommunity>
 ```
+##  check_dell_nseries_stacking_portstatus.py
+A plugin to check the stacking port status of Dell N series campus switches as reported via SNMP, tested on an N1548. Allows a status to be raised for a partially degraded stack - e.g. one of the pair of stacking cables unplugged
+
+Requires system libsnmp-dev
+
+And python modules: python3-netsnmp, sys, argparse
+
+Syntax:
+```
+python3 check_dell_nseries_stacking_portstatus.py --hostname <hostip> --community <snmpcommunity>
+```

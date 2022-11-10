@@ -1,7 +1,6 @@
 import netsnmp
 import argparse
 import sys
-import numpy
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--hostname",help="Hostname of the Switch",required=True)
